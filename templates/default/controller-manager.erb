@@ -1,0 +1,12 @@
+<%= node['kube']['custom_template_banner'] %>
+
+###
+# The following values are used to configure the kubernetes controller-manager
+
+# defaults from config and apiserver should be adequate
+
+# Comma seperated list of minions
+KUBELET_ADDRESSES="--machines=<%= node['kube']['kubelet']['machines'].join(',') %>"
+
+# Add you own!
+KUBE_CONTROLLER_MANAGER_ARGS="<%= node['kube']['controller-manager']['args'] %>"

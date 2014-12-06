@@ -1,0 +1,17 @@
+<%= node['kube']['custom_template_banner'] %>
+
+###
+# kubernetes kubelet (minion) config
+
+# The address for the info server to serve on (set to 0.0.0.0 or "" for all interfaces)
+KUBELET_ADDRESS="--address=<%= node['kube']['kubelet']['bind-address'] %>"
+
+# The port for the info server to serve on
+KUBELET_PORT="--port=<%= node['kube']['kubelet']['bind-port'] %>"
+
+# You may leave this blank to use the actual hostname
+# KUBELET_HOSTNAME="--hostname_override=127.0.0.1"
+KUBELET_HOSTNAME=""
+
+# Add your own!
+KUBELET_ARGS="<%= node['kube']['kubelet']['args'] %>"

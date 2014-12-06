@@ -1,0 +1,15 @@
+{
+  "name": "kubernetes-master",
+  "description": "This will deploy the kubernetes master",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[kubernetes::master]"
+  ],
+  "env_run_lists": {
+  }
+}

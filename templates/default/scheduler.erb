@@ -1,0 +1,9 @@
+<%= node['kube']['custom_template_banner'] %>
+
+###
+# kubernetes scheduler config
+
+# default config should be adequate
+
+# Add your own!
+KUBE_SCHEDULER_ARGS="<%= node['kube']['scheduler']['args'] %>"
