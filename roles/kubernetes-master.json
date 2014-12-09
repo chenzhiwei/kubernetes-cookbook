@@ -8,6 +8,7 @@
   },
   "chef_type": "role",
   "run_list": [
+    "recipe[kubernetes::etcd]",
     "recipe[kubernetes::master]"
   ],
   "env_run_lists": {

@@ -16,7 +16,8 @@
 include_recipe 'kubernetes::go'
 
 pkg_url = node['etcd']['package']
-pkg_name = pkg_url.split('/').last.to_s
+pkg_name = ::File.basename(pkg_url)
+name = ::File.basename(pkg_name, '.tar.gz')
 download_dir = '/root'
 
 # download etcd package
@@ -33,13 +34,30 @@ end
 # copy etcd bin to /usr/bin dir
 execute 'copy etcd to /usr/bin dir' do
   cwd download_dir
-  command '/bin/cp -rf etcd-v0.4.6-linux-amd64/etcd* /usr/bin/'
+  command "/bin/cp -rf #{name}/etcd* /usr/bin/"
 end
 
-# generate systemd file
-cookbook_file '/usr/lib/systemd/system/etcd.service' do
-  source 'etcd.service'
-  mode 00644
+# create etcd user
+user 'create etcd user' do
+  username 'etcd'
+  comment 'etcd user'
+  home '/var/lib/etcd'
+  shell '/usr/sbin/nologin'
+end
+
+# create /var/lib/etcd directory
+directory '/var/lib/etcd' do
+  owner 'etcd'
+  group 'etcd'
+  mode 00755
+  action :create
+end
+
+# create /etc/etcd directory
+directory '/etc/etcd' do
+  owner 'root'
+  group 'root'
+  mode 00755
   action :create
 end
 
@@ -49,12 +67,18 @@ template '/etc/etcd/etcd.conf' do
   source 'etcd.conf.erb'
   owner 'root'
   group 'root'
-  mode '0644'
+  mode 00644
+  action :create
+end
+
+# generate systemd file
+cookbook_file '/usr/lib/systemd/system/etcd.service' do
+  source 'etcd.service'
+  mode 00644
   action :create
 end
 
 # define etcd service
 service 'etcd' do
-  subscribes :restart, resources('template[/etc/etcd/etcd.conf]')
-  action [:enable, :start]
+  action [:enable, :restart]
 end

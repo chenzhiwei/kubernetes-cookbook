@@ -1,0 +1,19 @@
+{
+  "name": "kubernetes",
+  "override_attributes": {
+    "kube": {
+      "api": {
+        "host": "192.168.122.10"
+      },
+      "kubelet": {
+        "machines": ["192.168.122.11", "192.168.122.12"]
+      },
+      "interface": "eth0",
+      "package": "http://10.0.0.1/kubernetes.tar.gz"
+    },
+    "etcd": {
+      "servers": ["http://192.168.122.10:4001"],
+      "package": "http://10.0.0.1/etcd-v0.4.6-linux-amd64.tar.gz"
+    }
+  }
+}

@@ -20,7 +20,8 @@ default['kube']['custom_template_banner'] = '
 # Do not edit, changes will be overwritten'
 
 # etcd
-default['kube']['etcd']['servers'] = ['http://127.0.0.1:4001']
+default['etcd']['servers'] = ['http://127.0.0.1:4001']
+default['etcd']['package'] = 'https://github.com/coreos/etcd/releases/download/v0.4.6/etcd-v0.4.6-linux-amd64.tar.gz'
 
 # kubernetes master
 default['kube']['api']['host'] = '127.0.0.1'
@@ -44,7 +45,6 @@ default['kube']['proxy']['args'] = ''
 
 default['kube']['interface'] = 'eth0'
 default['kube']['package'] = 'https://github.com/GoogleCloudPlatform/kubernetes/releases/download/v0.5.4/kubernetes.tar.gz'
-default['etcd']['package'] = 'https://github.com/coreos/etcd/releases/download/v0.4.6/etcd-v0.4.6-linux-amd64.tar.gz'
 
 # golang related packages
 default['kube']['go']['package'] = 'go'
