@@ -1,6 +1,6 @@
 {
-  "name": "kubernetes-minion",
-  "description": "This will deploy the kubernetes minion nodes",
+  "name": "kubernetes-etcd",
+  "description": "This will deploy the etcd",
   "json_class": "Chef::Role",
   "default_attributes": {
   },
@@ -8,7 +8,7 @@
   },
   "chef_type": "role",
   "run_list": [
-    "recipe[kubernetes::minion]"
+    "recipe[kubernetes::etcd]"
   ],
   "env_run_lists": {
   }

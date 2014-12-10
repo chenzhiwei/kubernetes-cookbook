@@ -13,6 +13,7 @@
 # limitations under the License.
 #
 
+include_recipe 'kubernetes::firewall'
 include_recipe 'kubernetes::go'
 
 pkg_url = node['etcd']['package']

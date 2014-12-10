@@ -6,14 +6,12 @@
         "host": "192.168.122.10"
       },
       "kubelet": {
-        "machines": ["192.168.122.11", "192.168.122.12"]
+        "machines": ["192.168.122.11", "192.168.122.12", "192.168.122.13"]
       },
-      "interface": "eth0",
-      "package": "http://10.0.0.1/kubernetes.tar.gz"
+      "interface": "eth0"
     },
     "etcd": {
-      "servers": ["http://192.168.122.10:4001"],
-      "package": "http://10.0.0.1/etcd-v0.4.6-linux-amd64.tar.gz"
+      "host": ["192.168.122.10"]
     }
   }
 }

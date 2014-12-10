@@ -2,7 +2,7 @@ DEVICE=kbr0
 STP=yes
 TYPE=Bridge
 BOOTPROTO=static
-IPADDR=<%= node['kube'] %>
+IPADDR=<%= @ip_address %>
 PREFIX=24
 NAME=kbr0
 ONBOOT=yes

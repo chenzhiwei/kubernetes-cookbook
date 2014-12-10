@@ -15,6 +15,8 @@
 
 include_recipe 'kubernetes::firewall'
 include_recipe 'kubernetes::go'
+include_recipe 'kubernetes::network'
+include_recipe 'kubernetes::docker'
 
 pkg_url = node['kube']['package']
 pkg_name = ::File.basename(pkg_url)
@@ -62,7 +64,7 @@ end
 node.set['etcd']['servers'] = etcd_servers.join(',')
 
 # generate kubernetes config file
-%w(apiserver config controller-manager scheduler).each do |file|
+%w(config kubelet proxy).each do |file|
   template "/etc/kubernetes/#{file}" do
     cookbook 'kubernetes'
     source "#{file}.erb"
@@ -74,7 +76,7 @@ node.set['etcd']['servers'] = etcd_servers.join(',')
 end
 
 # generate systemd file
-%w(kube-apiserver.service kube-controller-manager.service kube-scheduler.service).each do |service|
+%w(kubelet.service kube-proxy.service).each do |service|
   cookbook_file "/usr/lib/systemd/system/#{service}" do
     source service
     mode 00644
@@ -83,7 +85,7 @@ end
 end
 
 # define kubernetes master services
-%w(kube-apiserver kube-controller-manager kube-scheduler).each do |service|
+%w(kubelet kube-proxy).each do |service|
   service service do
     action [:enable, :restart]
   end
